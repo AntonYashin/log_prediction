@@ -29,7 +29,7 @@ depth_train, depth_test, log_train, log_test = train_test_split(depth, log_infor
 #
 # plt.show()
 #
-degrees = [1, 5, 10, 15, 20]
+degrees = [1, 5, 10]
 
 for i in range(len(degrees)):
     ax = plt.subplot(1, len(degrees), i + 1)
