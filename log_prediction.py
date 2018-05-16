@@ -32,7 +32,7 @@ depth_train, depth_test, log_train, log_test = train_test_split(depth, log_infor
 degrees = [1, 5, 10]
 
 for i in range(len(degrees)):
-    ax = plt.subplot(1, len(degrees), i + 1)
+    # ax = plt.subplot(1, len(degrees), i + 1)
     plt.setp(ax, xticks=(), yticks=())
 
     polynomial_features = PolynomialFeatures(degree=degrees[i],
@@ -42,11 +42,10 @@ for i in range(len(degrees)):
                          ("linear_regression", linear_regression)])
     pipeline.fit(depth_train[:, np.newaxis], log_train)
 
+    print(pipeline.steps[1][1].coef_)
     # Evaluate the models using crossvalidation
     scores = cross_val_score(pipeline, depth_train[:, np.newaxis], log_train,
                              scoring="neg_mean_squared_error", cv=10)
-    print(i, ":    ", pipeline.get_params())
-    # print(depth_test.shape)
 
     # plt.scatter(depth_test, pipeline.predict(depth_test[:, np.newaxis]), label="Model")
     # plt.plot(depth_test, log_test, label="True function")
@@ -58,5 +57,5 @@ for i in range(len(degrees)):
     # plt.legend(loc="best")
     # plt.title("Degree {}\nMSE = {:.2e}(+/- {:.2e})".format(
     #     degrees[i], -scores.mean(), scores.std()))
-plt.show()
+# plt.show()
 
